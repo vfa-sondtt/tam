@@ -1,0 +1,65 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateTodoListInput {
+  Content: String!
+  Id_User: Int!
+  Title: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input LoginDTO {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createList(dto: CreateTodoListInput!): TodoList!
+  createUser(createUserInput: CreateUserInput!): User!
+  login(UserInput: LoginDTO!): String!
+  removeTodoList(id: Int!): Float!
+  updateTodoList(updateTodoListInput: UpdateTodoListInput!): TodoList!
+}
+
+type Query {
+  findById(id: Int!): TodoList!
+}
+
+type TodoList {
+  Content: String!
+  Piority: Float!
+  Title: String!
+  id: Int!
+  isComplete: Boolean!
+  user: User!
+}
+
+input UpdateTodoListInput {
+  Content: String
+  Piority: Float
+  Title: String
+  id: Int!
+  isComplete: Boolean
+}
+
+type User {
+  create_at: DateTime!
+  email: String!
+  id: Int!
+  lists: [TodoList!]!
+  name: String!
+  password: String!
+  status: Float!
+  update_at: DateTime!
+}

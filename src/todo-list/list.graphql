@@ -1,0 +1,58 @@
+type Mutation {
+  updateTodoList(updateTodoListInput: UpdateTodoListInput!): TodoList
+  createList(DtoCreate: DtoCreate!): TodoList
+  removeTodoList(id:String): TodoList
+}
+
+type Query{
+    findById(id:Float): TodoList
+    findByIdUser(id:Float): [TodoList]
+
+}
+
+
+input UpdateTodoListInput {
+  id: Float!
+  Piority:Float
+  isComplete: Boolean
+  Title: String
+  Content: String
+
+}
+
+input DtoCreate {
+  Title: String
+  Content: String
+}
+
+
+type TodoList{
+  id: Float
+
+  Piority: Float
+
+  isComplete: Boolean
+
+  Title: String
+
+  Content: String
+
+  user: User
+  
+}
+
+type User{
+
+  id:Float
+
+  email: String
+
+  password: String
+
+  status: Float
+
+
+  lists: [TodoList]
+}
+
+
