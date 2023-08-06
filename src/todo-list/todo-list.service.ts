@@ -70,14 +70,25 @@ export class TodoListService {
 
   async findByIdUser(id: number) {
     try {
-      const a = await this.toDoListRepository.find({ relations: { user: true } }) || null;
-      const infoUser = a.filter(user => user.user.id == id)
+      const allList = await this.toDoListRepository.find({ relations: { user: true } }) || null;
+      const infoUser = allList.filter(user => user.user.id == id)
       return infoUser
 
       //return this.toDoListRepository.findOne({ relations: { user: true }, where: { id } }) || null;
 
     } catch (error) {
       throw new Error('Error finding the user: ' + error.message);
+    }
+  }
+
+  async findByTittle(Title: string) {
+    try {
+      // return await this.toDoListRepository.findBy({ Title })
+      console.log(process.env.AUTH_EmailSend);
+
+    } catch (error) {
+      throw new Error('Error finding the user: ' + error.message);
+
     }
   }
 

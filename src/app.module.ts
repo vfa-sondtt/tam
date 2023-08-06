@@ -11,11 +11,11 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { join } from 'path'
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
-    host: 'localhost',
+    host: "localhost",
     port: 3306,
     username: 'root',
     password: '',
@@ -23,7 +23,7 @@ import { join } from 'path'
     entities: [User, TodoList],
     synchronize: true,
   }),
-
+  ConfigModule.forRoot({ isGlobal: true, }),
   TypeOrmModule.forFeature([User, TodoList]),
   PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule,
@@ -38,7 +38,7 @@ import { join } from 'path'
     // autoSchemaFile: 'src/schema.ggl',
     sortSchema: true,
     cors: {
-      origin: 'abc',
+      origin: '',
       credentials: true,
     },
     context: ({ req, res }) => ({ req, res, header: req.headers }),

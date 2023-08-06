@@ -53,6 +53,8 @@ export abstract class IQuery {
     abstract findById(id?: Nullable<number>): Nullable<TodoList> | Promise<Nullable<TodoList>>;
 
     abstract findByIdUser(id?: Nullable<number>): Nullable<Nullable<TodoList>[]> | Promise<Nullable<Nullable<TodoList>[]>>;
+
+    abstract findByTittle(Title?: Nullable<string>): Nullable<Nullable<TodoList>[]> | Promise<Nullable<Nullable<TodoList>[]>>;
 }
 
 export class RegisterResponse {

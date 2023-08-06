@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { JwtService } from '@nestjs/jwt';
@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import bcrypt from 'bcrypt';
 import { LoginDTO } from './dto/login-user.input';
+import nodemailer from 'nodemailer';
 
 @Injectable()
 export class UsersService {
@@ -88,6 +89,55 @@ export class UsersService {
   }
 
 
+
+
+  async sendEmail(email: string, username: string): Promise<void> {
+
+    const transporter = nodemailer.createTransport({
+      /* Configure your email service here */
+      service: 'gmail',
+      auth: {
+        user: 'phandinhphong258@gmail.com',
+        pass: 'jtkaohjfamxtulbv',
+      },
+    });
+
+    const mailOptions = {
+      from: 'phandinhphong258@gmail.com',
+      email,
+      subject: `Message from ${email}: Veriy email`,
+      text: 'thanks for register',
+      html: `<div>
+                    <h1>Email Confirmation</h1>
+                    <h2>Hello ${username}! Thanks for register on our site </h2>
+                    <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+                    <h4>Please verify your email to contine</h4>
+                    <a href=http://localhost:5000/auth/resetpassword/${email}> Click here</a>
+                </div>` ,
+    };
+    await transporter.sendMail(mailOptions);
+  }
+
+
+
+  async forgotPassword(email: string, password): Promise<any> {
+
+    try {
+      const existingUser = await this.findOne({ email });
+
+      if (!existingUser) {
+        throw new HttpException('user not exits', HttpStatus.BAD_REQUEST);
+      }
+
+
+
+
+    } catch (error) {
+
+    }
+
+
+  }
 
 
 

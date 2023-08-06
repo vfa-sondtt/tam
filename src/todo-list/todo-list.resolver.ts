@@ -3,10 +3,10 @@ import { TodoListService } from './todo-list.service';
 import { TodoList } from './entities/todo-list.entity';
 import { CreateTodoListInput } from './dto/create-todo-list.input';
 import { UpdateTodoListInput } from './dto/update-todo-list.input';
-import { JwtAuthGuard } from 'src/users/user.guard';
 import { UseGuards } from '@nestjs/common';
 import { GqlUser } from 'src/users/user.decorator';
 import { log } from 'console';
+import { JwtAuthGuard } from 'src/users/user.guard';
 
 @Resolver(() => TodoList)
 export class TodoListResolver {
@@ -31,6 +31,11 @@ export class TodoListResolver {
   @Query(() => TodoList)
   findByIdUser(@Args('id', { type: () => Int }) id: number) {
     return this.todoListService.findByIdUser(id);
+  }
+
+  @Query(() => TodoList)
+  findByTittle(@Args('Title', { type: () => String }) Title: string) {
+    return this.todoListService.findByTittle(Title)
   }
 
 

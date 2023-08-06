@@ -20,8 +20,6 @@ export class UsersResolver {
   async createUser(@GqlUser() user: any, @Args('CreateUserInput') CreateUserInput: CreateUserInput) {
     try {
 
-      // // const userData = request.user;
-      // // You can now use this userData in your controller logic
 
       const { email } = CreateUserInput
       // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay chưa
@@ -62,9 +60,6 @@ export class UsersResolver {
       const accessToken = await this.usersService.generateAccessToken(email, existingUser.id);
       const refreshToken = await this.usersService.generateRefreshToken(email, existingUser.id);
 
-
-      // Set the cookie in the response object
-      // response.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/`); // Change 'token' to the desired cookie name
       return { accessToken, refreshToken }
 
     } catch (error) {
@@ -73,4 +68,31 @@ export class UsersResolver {
   }
 
 
+
+  // @Mutation(() => Boolean)
+  // async requestPasswordReset(@Args('email') email: string): Promise<boolean> {
+  //   const user = this.usersService.findOne((user) => user.email === email);
+  //   if (!user) {
+  //     throw new Error('User not found');
+  //   }
+
+  //   await this.usersService.sendEmail((await user).email, (await user).name);
+
+  //   return true;
+  // }
+
+
+  // @Mutation(String)
+  // async forgotPassword(@Args('UserInput') UserInput: LoginDTO) {
+  //   try {
+  //     const { email, password } = UserInput
+  //     const existingUser = await this.usersService.findOne({ email });
+
+  //     if (!existingUser) {
+  //       throw new HttpException('user not exits', HttpStatus.BAD_REQUEST);
+  //     }
+  // } catch (error) {
+
+  // }
+  //   }
 }

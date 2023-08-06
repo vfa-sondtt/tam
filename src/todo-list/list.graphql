@@ -7,7 +7,7 @@ type Mutation {
 type Query{
     findById(id:Float): TodoList
     findByIdUser(id:Float): [TodoList]
-
+    findByTittle(Title:String):[TodoList]
 }
 
 
