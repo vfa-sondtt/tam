@@ -30,6 +30,8 @@ export class TodoListService {
       const newList = this.toDoListRepository.create({
         Title: createTodoListInput.Title,
         Content: createTodoListInput.Content,
+        Piority: createTodoListInput.Piority,
+        isComplete: createTodoListInput.isComplete,
         user: users
       });
 

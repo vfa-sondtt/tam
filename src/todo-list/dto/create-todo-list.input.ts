@@ -12,5 +12,10 @@ export class CreateTodoListInput {
   @Field()
   Content: string;
 
+  @Field()
+  isComplete: boolean;
+
+  @Field()
+  Piority: number;
 
 }

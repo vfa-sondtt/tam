@@ -23,6 +23,8 @@ input UpdateTodoListInput {
 input DtoCreate {
   Title: String
   Content: String
+  isComplete: Boolean
+  Piority: Int
 }
 
 

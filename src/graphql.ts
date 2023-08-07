@@ -16,7 +16,9 @@ export class CreateUserInput {
 
 export class DtoCreate {
     Content?: Nullable<string>;
+    Piority?: Nullable<number>;
     Title?: Nullable<string>;
+    isComplete?: Nullable<boolean>;
 }
 
 export class UpdateTodoListInput {
