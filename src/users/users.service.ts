@@ -62,7 +62,7 @@ export class UsersService {
   }
 
   generateAccessToken(email: string, id: number): Promise<string> {
-    const secret: string = 'jwt-access-token'
+    const secret: string = process.env.accessToken
     const payload = {
       email,
       id
@@ -75,7 +75,7 @@ export class UsersService {
     });
   }
   generateRefreshToken(email: string, id: number): Promise<string> {
-    const secret: string = 'jwt-refresh-token'
+    const secret: string = process.env.refreshToken
     const payload = {
       email,
       id

@@ -8,7 +8,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt-access-token') 
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: "accessToken",
+            secretOrKey: process.env.accessToken,
         });
     }
     async validate(payload: any) {

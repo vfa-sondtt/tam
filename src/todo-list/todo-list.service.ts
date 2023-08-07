@@ -83,9 +83,10 @@ export class TodoListService {
 
   async findByTittle(Title: string) {
     try {
-      return await this.toDoListRepository.findBy({ Title })
-      //console.log(process.env.AUTH_EmailSend);
+      const allList = await this.toDoListRepository.find() || null;
+      const titleSearch = allList.filter(list => list.Title.toLowerCase().includes(Title.toLowerCase()))
 
+      return titleSearch
     } catch (error) {
       throw new Error('Error finding the user: ' + error.message);
 

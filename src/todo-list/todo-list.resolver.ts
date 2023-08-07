@@ -15,9 +15,8 @@ export class TodoListResolver {
 
 
   @UseGuards(JwtAuthGuard)
-  @Mutation((returns) => TodoList)
+  @Mutation(() => TodoList)
   async createList(@GqlUser() user: any, @Args('DtoCreate') DtoCreate: CreateTodoListInput) {
-
     return this.todoListService.create(DtoCreate, user.id);
   }
 
@@ -28,9 +27,10 @@ export class TodoListResolver {
     return this.todoListService.findById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => TodoList)
-  findByIdUser(@Args('id', { type: () => Int }) id: number) {
-    return this.todoListService.findByIdUser(id);
+  findByIdUser(@GqlUser() user: any) {
+    return this.todoListService.findByIdUser(user.id);
   }
 
   @Query(() => TodoList)
