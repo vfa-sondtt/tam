@@ -48,7 +48,7 @@ export class UsersResolver {
       const { email, password } = UserInput
       const existingUser = await this.usersService.findOne({ email });
       if (!existingUser) {
-        throw new HttpException('user not exits', HttpStatus.BAD_REQUEST);
+        throw new BadRequestException('user not exits');
       }
 
       if (!await bcrypt.compare(password, existingUser.password)) {

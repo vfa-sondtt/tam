@@ -34,8 +34,8 @@ export class TodoListResolver {
   }
 
   @Query(() => TodoList)
-  findByTittle(@Args('Title', { type: () => String }) Title: string) {
-    return this.todoListService.findByTittle(Title)
+  findByTittle(@Args('title', { type: () => String }) title: string) {
+    return this.todoListService.findByTittle(title)
   }
 
 
