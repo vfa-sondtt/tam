@@ -62,7 +62,7 @@ export class UsersService {
   }
 
   generateAccessToken(email: string, id: number): Promise<string> {
-    const secret: string = "accessToken"
+    const secret: string = 'jwt-access-token'
     const payload = {
       email,
       id
@@ -75,7 +75,7 @@ export class UsersService {
     });
   }
   generateRefreshToken(email: string, id: number): Promise<string> {
-    const secret: string = "refreshToken"
+    const secret: string = 'jwt-refresh-token'
     const payload = {
       email,
       id
@@ -97,13 +97,13 @@ export class UsersService {
       /* Configure your email service here */
       service: 'gmail',
       auth: {
-        user: 'phandinhphong258@gmail.com',
-        pass: 'jtkaohjfamxtulbv',
+        user: process.env.AUTH_EmailSend,
+        pass: process.env.AUTH_Pass,
       },
     });
 
     const mailOptions = {
-      from: 'phandinhphong258@gmail.com',
+      from: process.env.AUTH_EmailSend,
       email,
       subject: `Message from ${email}: Veriy email`,
       text: 'thanks for register',
@@ -120,26 +120,16 @@ export class UsersService {
 
 
 
-  async forgotPassword(email: string, password): Promise<any> {
+  async forgotPassword(email: string, password: string): Promise<any> {
 
     try {
-      const existingUser = await this.findOne({ email });
-
-      if (!existingUser) {
-        throw new HttpException('user not exits', HttpStatus.BAD_REQUEST);
+      const user = await this.findOne({ email });
+      if (!user) {
+        throw new Error('Invalid or expired token');
       }
-
-
-
-
+      user.password = password;
+      await this.userRepository.save(user)
     } catch (error) {
-
     }
-
-
   }
-
-
-
-
 }

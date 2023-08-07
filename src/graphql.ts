@@ -44,7 +44,7 @@ export abstract class IMutation {
 
     abstract login(UserInput: UserInput): Nullable<AuthResponse> | Promise<Nullable<AuthResponse>>;
 
-    abstract removeTodoList(id?: Nullable<string>): Nullable<TodoList> | Promise<Nullable<TodoList>>;
+    abstract removeTodoList(id?: Nullable<number>): Nullable<TodoList> | Promise<Nullable<TodoList>>;
 
     abstract updateTodoList(updateTodoListInput: UpdateTodoListInput): Nullable<TodoList> | Promise<Nullable<TodoList>>;
 }

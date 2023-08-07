@@ -1,6 +1,8 @@
 type Mutation {
   login(UserInput: UserInput!): AuthResponse
   createUser(CreateUserInput: CreateUserInput!): RegisterResponse
+  
+
 }
 
 

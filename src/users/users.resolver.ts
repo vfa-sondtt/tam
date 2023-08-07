@@ -15,9 +15,8 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService,
   ) { }
 
-  @UseGuards(JwtAuthGuard)
   @Mutation(() => User)
-  async createUser(@GqlUser() user: any, @Args('CreateUserInput') CreateUserInput: CreateUserInput) {
+  async createUser(@Args('CreateUserInput') CreateUserInput: CreateUserInput) {
     try {
 
 
@@ -85,14 +84,13 @@ export class UsersResolver {
   // @Mutation(String)
   // async forgotPassword(@Args('UserInput') UserInput: LoginDTO) {
   //   try {
-  //     const { email, password } = UserInput
-  //     const existingUser = await this.usersService.findOne({ email });
-
+  //     const { password } = UserInput
+  //     const existingUser = await this.usersService.forgotPassword(UserInput.email, password);
   //     if (!existingUser) {
   //       throw new HttpException('user not exits', HttpStatus.BAD_REQUEST);
   //     }
-  // } catch (error) {
+  //   } catch (error) {
 
-  // }
   //   }
+  // }
 }

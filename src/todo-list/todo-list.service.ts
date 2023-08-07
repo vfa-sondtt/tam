@@ -83,8 +83,8 @@ export class TodoListService {
 
   async findByTittle(Title: string) {
     try {
-      // return await this.toDoListRepository.findBy({ Title })
-      console.log(process.env.AUTH_EmailSend);
+      return await this.toDoListRepository.findBy({ Title })
+      //console.log(process.env.AUTH_EmailSend);
 
     } catch (error) {
       throw new Error('Error finding the user: ' + error.message);

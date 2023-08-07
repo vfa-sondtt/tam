@@ -12,39 +12,46 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { join } from 'path'
 import { ConfigModule } from '@nestjs/config';
+
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: "localhost",
-    port: 3306,
-    username: 'root',
-    password: '',
-    database: 'demo2',
-    entities: [User, TodoList],
-    synchronize: true,
-  }),
-  ConfigModule.forRoot({ isGlobal: true, }),
-  TypeOrmModule.forFeature([User, TodoList]),
-  PassportModule.register({ defaultStrategy: 'jwt' }),
+
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true, }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: 3306,
+      username: process.env.DB_USERNAME,
+      password: '',
+      database: process.env.DB_DATABASE,
+      entities: [User, TodoList],
+      synchronize: true,
+    }),
+    TypeOrmModule.forFeature([User, TodoList]),
+    PassportModule.register({
+      defaultStrategy: 'jwt'
+
+    }),
     JwtModule,
 
-  GraphQLModule.forRoot({
-    driver: ApolloDriver,
-    typePaths: ['src/common/*.graphql', 'src/**/*.graphql'],
-    definitions: {
-      path: join(process.cwd(), 'src/graphql.ts'),
-      outputAs: 'class',
-    },
-    // autoSchemaFile: 'src/schema.ggl',
-    sortSchema: true,
-    cors: {
-      origin: '',
-      credentials: true,
-    },
-    context: ({ req, res }) => ({ req, res, header: req.headers }),
-  })
+    GraphQLModule.forRoot({
+      driver: ApolloDriver,
+      typePaths: ['src/common/*.graphql', 'src/**/*.graphql'],
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.ts'),
+        outputAs: 'class',
+      },
+      // autoSchemaFile: 'src/schema.ggl',
+      sortSchema: true,
+      cors: {
+        origin: '',
+        credentials: true,
+      },
+      context: ({ req, res }) => ({ req, res, header: req.headers }),
+    })
     , UsersModule, TodoListModule],
   controllers: [AppController],
   providers: [AppService],
+  exports: [PassportModule]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 type Mutation {
   updateTodoList(updateTodoListInput: UpdateTodoListInput!): TodoList
   createList(DtoCreate: DtoCreate!): TodoList
-  removeTodoList(id:String): TodoList
+  removeTodoList(id:Int): TodoList
 }
 
 type Query{
