@@ -4,8 +4,7 @@ import { IsNotEmpty, IsEmail, Length, Matches, IsNumber } from 'class-validator'
 @InputType()
 export class CreateTodoListInput {
 
-  @IsNotEmpty({ message: 'Title is required' })
-  @Field()
+    @Field()
   Title: string;
 
   @IsNotEmpty({ message: 'Content is required' })
